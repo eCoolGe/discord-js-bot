@@ -9,7 +9,9 @@ module.exports = {
             option
                 .setName('count')
                 .setDescription('Количество сообщений, которое необходимо удалить')
-                .setRequired(true))
+                .setRequired(true)
+                .setMinValue(1)
+                .setMaxValue(100))
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageRoles)
         .setDMPermission(false),
     async execute(interaction) {
@@ -36,5 +38,6 @@ module.exports = {
 
 
         })
+
     },
 };
