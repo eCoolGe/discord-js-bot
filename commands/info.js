@@ -3,16 +3,17 @@ const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('info')
-        .setDescription('Получите информацию о пользователе или сервере')
+        .setDescription('Получите информацию о участнике или сервере')
         .addSubcommand(subcommand =>
             subcommand
                 .setName('user')
-                .setDescription('Информация о пользователе')
-                .addUserOption(option => option.setName('target').setDescription('The user')))
+                .setDescription('Информация о участнике')
+                .addUserOption(option => option.setName('target').setDescription('Участник')))
         .addSubcommand(subcommand =>
             subcommand
                 .setName('server')
-                .setDescription('Информация о сервере')),
+                .setDescription('Информация о сервере'))
+        .setDMPermission(false),
     async execute(interaction) {
         if (interaction.options.getSubcommand() === 'user') {
             await interaction.deferReply();

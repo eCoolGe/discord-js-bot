@@ -63,3 +63,4 @@ for (const file of eventFiles) {
 
 client.login(token);
 
+// exports.client = client
