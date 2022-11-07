@@ -13,8 +13,7 @@ module.exports = {
             option.setName('type')
                 .setDescription('Тип активности')
                 .setRequired(false)
-                .addChoices(
-                    { name: 'Смотрит', value: 'Watching' },
+                .addChoices({ name: 'Смотрит', value: 'Watching' },
                     { name: 'Слушает', value: 'Listening' },
                     { name: 'Соревнуется в', value: 'Competing' },
                 ))
@@ -28,7 +27,7 @@ module.exports = {
         const type = interaction.options.getString('type')
 
         if (type) {
-            let status = {
+            const status = {
                 'Watching': ActivityType.Watching,
                 'Listening': ActivityType.Listening,
                 'Competing': ActivityType.Competing
@@ -39,7 +38,7 @@ module.exports = {
             bot.setActivity(`${desc}`);
         }
 
-        await interaction.editReply(`Тип/текст активности ${bot.tag} успешно изменен(-ы)`)
+        await interaction.editReply('🧸' + `Тип/текст активности \`${bot.tag}\` успешно изменен(-ы)`)
         await wait(5000)
         await interaction.deleteReply()
     },

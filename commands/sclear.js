@@ -8,10 +8,10 @@ module.exports = {
         .addIntegerOption(option =>
             option
                 .setName('count')
-                .setDescription('Количество сообщений, которое необходимо удалить')
+                .setDescription('Количество сообщений, которое необходимо удалить [1-50]')
                 .setRequired(true)
                 .setMinValue(1)
-                .setMaxValue(100))
+                .setMaxValue(50))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDMPermission(false),
     async execute(interaction) {
@@ -25,13 +25,13 @@ module.exports = {
             messages.forEach(msg => {
                 msg.delete()
             })
-
+            await interaction.deferReply();
+            await wait(3000)
+            await interaction.editReply('✅'+` Удалено сообщений: ${messages.size}`)
+            await wait(5000)
+            await interaction.deleteReply()
         })
-        await interaction.deferReply();
-        await wait(3000)
-        await interaction.editReply(`Удалено сообщений: ${count}`)
-        await wait(5000)
-        await interaction.deleteReply()
+
 
 
     },
