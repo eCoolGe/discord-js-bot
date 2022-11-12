@@ -1,14 +1,14 @@
 {
   "name": "discord-js-bot",
-  "version": "2.0.0",
-  "description": "",
+  "version": "2.0.1",
+  "description": "Discord Bot, developed by eCoolGe in November 2022",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "upd-d": "node deploy-commands.js"
   },
-  "keywords": [],
+  "keywords": ["bot", "discord", "eCoolGe", "eCoolBot"],
   "author": "eCoolGe",
   "license": "ISC",
   "dependencies": {
