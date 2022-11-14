@@ -2,8 +2,16 @@ const {Events, AuditLogEvent, EmbedBuilder} = require('discord.js');
 const {guilds} = require('../config.json')
 
 const nsfwOptions = {
-    true : "Да",
-    false : "Нет"
+    true: "Да",
+    false: "Нет"
+}
+
+const archiveDurationOptions = {
+    undefined: "Нет",
+    60: "1 час",
+    1440: "24 часа",
+    4320: "3 дня",
+    10080: "1 неделя"
 }
 
 const rateLimitOptions = {
@@ -36,9 +44,7 @@ module.exports = {
                 const channelUpdateLog = fetchedLogs.entries.first();
 
                 if (channelUpdateLog.target.id === channel.id) {
-                    console.log(channelUpdateLog.target.permissionOverwrites.cache)
                     let changes = []
-                    channelUpdateLog.changes.map(change => console.log(change.key + ' ' + change.old + ' ' + change.new))
                     channelUpdateLog.changes.map(change => {
                         if (change.key === 'name') {
                               changes.push({name: 'Название канала', value: `\`${change.old}\` **→** \`${change.new}\``, inline: false})
@@ -53,7 +59,7 @@ module.exports = {
                             changes.push({name: 'Канал с возрастным ограничением', value: `\`${nsfwOptions[change.old]}\` **→** \`${nsfwOptions[change.new]}\``, inline: false})
                         }
                         if (change.key === 'default_auto_archive_duration') {
-                            changes.push({name: 'Скрыть после неактивности', value: `\`${change.old}\` **→** \`${change.new}\``, inline: false})
+                            changes.push({name: 'Скрыть после неактивности', value: `\`${archiveDurationOptions[change.old]}\` **→** \`${archiveDurationOptions[change.new]}\``, inline: false})
                         }
                         if (change.key === 'id' && !change.old) {
                             changes.push({name: 'Добавлены права для роли', value: `${channel.guild.roles.cache.get(change.new)}`, inline: false})
@@ -75,7 +81,6 @@ module.exports = {
                         .setFooter({ text: channel.client.user.tag, iconURL: channel.client.user.avatarURL() });
 
                     logChannel.send({ embeds: [updChannelEmbed] });
-
                 }
             }
         })
