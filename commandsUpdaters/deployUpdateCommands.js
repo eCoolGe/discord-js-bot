@@ -1,5 +1,5 @@
 const { REST, Routes } = require('discord.js');
-const { clientId, guildId, token } = require('./config.json');
+const { clientId, guildId, token } = require('../config.json');
 const fs = require('node:fs');
 
 const commands = [];
@@ -8,7 +8,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
 for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
+    const command = require(`../commands/${file}`);
     commands.push(command.data.toJSON());
 }
 
@@ -18,13 +18,12 @@ const rest = new REST({ version: '10' }).setToken(token);
 // and deploy your commands!
 (async () => {
     try {
+        console.log(`Обновление ${commands.length} команд (/) для сервера разработки...`);
 
         // Delete all commands in the guild with the current set
-        rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: [] })
-            .then(() => console.log('Successfully deleted all guild commands.'))
-            .catch(console.error);
-
-        console.log(`Started refreshing ${commands.length} application (/) commands.`);
+        // rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: [] })
+        //     .then(() => console.log('Все команды (/) на сервере разработки успешно удалены'))
+        //     .catch(console.error);
 
         // The put method is used to fully refresh all commands in the guild with the current set
         const data = await rest.put(
@@ -32,13 +31,7 @@ const rest = new REST({ version: '10' }).setToken(token);
             { body: commands },
         );
 
-        // The put method is used to fully refresh all commands in the global
-        // const data = await rest.put(
-        //     Routes.applicationCommands(clientId),
-        //     { body: commands },
-        // );
-
-        console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+        console.log(`Успешно обновлены ${data.length} команд (/) для сервера разработки`);
     } catch (error) {
         // And of course, make sure you catch and log any errors!
         console.error(error);

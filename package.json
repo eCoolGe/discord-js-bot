@@ -1,14 +1,17 @@
 {
   "name": "discord-js-bot",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Discord Bot, developed by eCoolGe in November 2022",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "upd-d": "node deploy-commands.js"
+    "upd-d": "node commandsUpdaters/deployUpdateCommands.js",
+    "upd-g": "node commandsUpdaters/globalUpdateCommands.js",
+    "upd-t": "node commandsUpdaters/trustedUpdateCommands.js",
+    "del-g": "node commandsUpdaters/globalDeleteCommands.js"
   },
-  "keywords": ["bot", "discord", "eCoolGe", "eCoolBot"],
+  "keywords": ["bot", "discord", "eCoolGe", "eCoolBot", "discord.js", "JavaScript"],
   "author": "eCoolGe",
   "license": "ISC",
   "dependencies": {
