@@ -1,7 +1,10 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const {Client, Events, GatewayIntentBits, Collection, AuditLogEvent} = require('discord.js');
-const {token, prefix} = require('./config.json');
+
+require('dotenv').config();
+
+const TOKEN = process.env.TOKEN;
 
 const client = new Client({
     intents: [
@@ -61,6 +64,8 @@ for (const file of eventFiles) {
 //     if (command_file) command_file.execute()
 // })
 
-client.login(token);
+if (TOKEN) {
+    client.login(TOKEN);
+}
 
 // exports.client = client
